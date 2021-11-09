@@ -1,8 +1,10 @@
 package com.xing.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.xing.entity.UserEntity;
 import com.xing.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -33,8 +35,12 @@ public class UserController {
      *  获取全部
      * @return user list
      */
-    @RequestMapping("/getAll")
-    public String getAll(){
+    @RequestMapping("/getAll/{num}")
+    public String getAll(@PathVariable int num){
+        if(StringUtils.isEmpty(num)){
+            num = 2;
+        }
+        PageHelper.startPage(1,num);
         return userMapper.getAll().toString();
     }
 
