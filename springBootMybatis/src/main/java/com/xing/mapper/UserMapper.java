@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public interface UserMapper {
 
+
+    @Insert("insert into user (id, userName, passWord, realName) values(#{id}, #{userName}, #{passWord}, #{realName})")
+//    @SelectKey(statement="call next value for user_sequence", keyProperty="id", before=true, resultType=int.class)
+    int insertUser(UserEntity user);
+
     UserEntity getOne(int id);
 
     @Select("SELECT * FROM user")
@@ -32,4 +37,16 @@ public interface UserMapper {
 
     @Delete("DELETE FROM user WHERE id =#{id}")
     void delete(Integer id);
+
+    /**
+     * 存过插入用户
+     * @param user user
+     */
+    void insertUserCD(UserEntity user);
+
+    /**
+     *  试试select标签
+     * @param user
+     */
+    void insertUserCD2(UserEntity user);
 }
